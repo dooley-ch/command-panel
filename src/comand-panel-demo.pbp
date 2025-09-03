@@ -7,7 +7,7 @@
   <section name="data">
     <explorer view="../../" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2025-09-03 22:52" user="jdooley" host="Jamess-iMac.local"/>
+    <lastopen date="2025-09-03 23:10" user="jdooley" host="Jamess-iMac.local"/>
   </section>
   <section name="files">
     <file name="command-panel-data.pbi">
@@ -16,11 +16,11 @@
     </file>
     <file name="command-panel-gadget.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate=""/>
-      <fingerprint md5="27676cd68fec0d705f35f5fc0ebff4ea"/>
+      <fingerprint md5="3cf65503785bc6bb55892405b5f27331"/>
     </file>
     <file name="main.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="3" panelstate=""/>
-      <fingerprint md5="c3f8733778d2047f6e73271b352ea050"/>
+      <fingerprint md5="c62442d6cc6ae2412af59c610d5e33bf"/>
     </file>
   </section>
   <section name="targets">

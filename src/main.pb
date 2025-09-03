@@ -17,7 +17,9 @@ EnableExplicit
 Enumeration
   #DemoWindow
 EndEnumeration
-  
+
+#APP_TITLE = "Demo Command Panel"
+
 UseModule CommandPanelGadgetUI
 
 UsePNGImageDecoder()
@@ -54,11 +56,17 @@ Procedure _OnResizeWindow()
   ResizeGadget(NO, locX, locY, #PB_Ignore, wndHeight)
 EndProcedure
 
+Procedure _ItemClicked(index.i)
+  MessageRequester(#APP_TITLE, "You clicked on item => " + Str(index), 
+                   #PB_MessageRequester_Ok | #PB_MessageRequester_Info, 
+                   #DemoWindow) 
+EndProcedure
+
 ;┌───────────────────────────────────────────────────────────────────────────────────────────────
 ;│     Main Loop     
 ;└───────────────────────────────────────────────────────────────────────────────────────────────
 
-OpenWindow(#DemoWindow, #PB_Ignore, #PB_Ignore, 900, 600, "Demo Command Panel",
+OpenWindow(#DemoWindow, #PB_Ignore, #PB_Ignore, 900, 600, #APP_TITLE,
                       #PB_Window_TitleBar | #PB_Window_ScreenCentered | #PB_Window_SystemMenu | #PB_Window_SizeGadget)
 
 If IsWindow(#DemoWindow)
@@ -76,6 +84,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Icons\Normal = image01
   cfgItem\Icons\Hover = image01
   cfgItem\Caption$ = "Item Number One"
+  cfgItem\CallBackFunc = @_ItemClicked()
   
   AddCmpPanelItem(@cfgItem)
   
@@ -86,6 +95,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Two"
+  cfgItem\CallBackFunc = @_ItemClicked()
   
   AddCmpPanelItem(@cfgItem)
   
@@ -96,6 +106,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Three"
+  cfgItem\CallBackFunc = @_ItemClicked()
   
   AddCmpPanelItem(@cfgItem)
   
@@ -131,8 +142,8 @@ EndDataSection
 End
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 54
-; FirstLine = 42
+; CursorPosition = 78
+; FirstLine = 58
 ; Folding = -
 ; EnableXP
 ; DPIAware

@@ -324,7 +324,13 @@ Module CommandPanelGadgetUI
     If IsGadget(gadgetNO)
       index = GetGadgetData(gadgetNO)
       If CommandPanelData::FindCmdPanelItemRecord(index, @cfg)
-        Debug "Execute item"
+        If cfg\State = CommandPanelData::#CP_DisabledItem
+          ProcedureReturn ; Item is disabled so don't execute the func
+        EndIf
+        
+        If cfg\CallBackFunc
+          cfg\CallBackFunc(index)
+        EndIf
       EndIf
     EndIf
   EndProcedure
@@ -452,11 +458,10 @@ Module CommandPanelGadgetUI
   EndProcedure
   
 EndModule
-
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 260
-; FirstLine = 243
+; CursorPosition = 333
+; FirstLine = 311
 ; Folding = ---
 ; EnableXP
 ; DPIAware
