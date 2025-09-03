@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AxialisIconCollection>
+  <Name>app-icon</Name>
+  <Icon>
+    <Name>app-icon</Name>
+    <HasBackground>0</HasBackground>
+    <StockIconName>color-replacer.axvi</StockIconName>
+    <StockIconFamily>Axialis Flat Pro 2017</StockIconFamily>
+    <StockIconSet>Imaging</StockIconSet>
+    <StockOverlayName>heart.axvi</StockOverlayName>
+    <ResourceIDValue>100</ResourceIDValue>
+    <ResourceID>ID_COLOR-REPLACER-HEART</ResourceID>
+    <OverlayOffset>1</OverlayOffset>
+    <Opacity>255</Opacity>
+    <ColorizeMode>0</ColorizeMode>
+    <StockOverlayPos>4</StockOverlayPos>
+    <DarkMode>0</DarkMode>
+  </Icon>
+</AxialisIconCollection>
