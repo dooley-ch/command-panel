@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.21 - C Backend (MacOS X - arm64)">
+  <section name="config">
+    <options closefiles="1" openmode="0" name="Command Panel Demo"/>
+  </section>
+  <section name="data">
+    <explorer view="../../" pattern="0"/>
+    <log show="1"/>
+    <lastopen date="2025-09-03 18:24" user="jdooley" host="Jamess-iMac.local"/>
+  </section>
+  <section name="files"/>
+  <section name="targets">
+    <target name="Default Target" enabled="1" default="1">
+      <inputfile value=""/>
+      <outputfile value=""/>
+      <options xpskin="1" dpiaware="1" debug="1" optimizer="0"/>
+      <format exe="console" cpu="0"/>
+    </target>
+  </section>
+</project>
