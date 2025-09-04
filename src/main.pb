@@ -16,6 +16,8 @@ EnableExplicit
   
 Enumeration
   #DemoWindow
+  #EnableTwoButton
+  #DisableTwoButton
 EndEnumeration
 
 #APP_TITLE = "Demo Command Panel"
@@ -27,6 +29,7 @@ UsePNGImageDecoder()
 ;-------- Variables -------
 
 Define event.i, quit.b, leftCtrl.i, rightCtrl.i
+Define.i itemOne, itemTwo, itemThree
 Define cfg.CommandPanelData::cpConfiguration,
        cfgItem.CommandPanelData::cpItemConfiguration
 Define image01.i = CatchImage(#PB_Any, ?Image_01),
@@ -45,6 +48,7 @@ Procedure _OnResizeWindow()
   wndHeight = WindowHeight(#DemoWindow)
   wndWidth = WindowWidth(#DemoWindow)
   
+  ; Position the CommandPanels
   NO = CommandPanelData::CommandPanelNO(leftCtrl)
   
   ResizeGadget(NO, locX, locY, #PB_Ignore, wndHeight)
@@ -54,12 +58,39 @@ Procedure _OnResizeWindow()
   locX = wndWidth - panelWidth
   
   ResizeGadget(NO, locX, locY, #PB_Ignore, wndHeight)
+  
+  ; Position the left buttons
+  locX = 200
+  locY = 10
+  
+  ResizeGadget(#EnableTwoButton, locX, locY, #PB_Ignore, #PB_Ignore)
+  
+  locY = locY + 30
+  
+  ResizeGadget(#DisableTwoButton, locX, locY, #PB_Ignore, #PB_Ignore)
+  
 EndProcedure
 
 Procedure _ItemClicked(index.i)
   MessageRequester(#APP_TITLE, "You clicked on item => " + Str(index), 
                    #PB_MessageRequester_Ok | #PB_MessageRequester_Info, 
                    #DemoWindow) 
+EndProcedure
+
+Procedure _OnEnableTwo()
+  Shared itemTwo
+  
+  DisableGadget(#EnableTwoButton, #True)
+  DisableGadget(#DisableTwoButton, #False)
+  DisableCmpPanelItem(itemTwo, #False)
+EndProcedure
+
+Procedure _OnDisableTwo()
+  Shared itemTwo
+  
+  DisableGadget(#DisableTwoButton, #True)
+  DisableGadget(#EnableTwoButton, #False)
+  DisableCmpPanelItem(itemTwo)
 EndProcedure
 
 ;┌───────────────────────────────────────────────────────────────────────────────────────────────
@@ -83,32 +114,42 @@ If IsWindow(#DemoWindow)
   cfgItem\PanelIndex = leftCtrl
   cfgItem\Icons\Normal = image01
   cfgItem\Icons\Hover = image01
+  cfgItem\Icons\Disabled = image01
   cfgItem\Caption$ = "Item Number One"
   cfgItem\CallBackFunc = @_ItemClicked()
   
-  AddCmpPanelItem(@cfgItem)
+  itemOne = AddCmpPanelItem(@cfgItem)
   
   CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
   cfgItem\PanelIndex = leftCtrl
   cfgItem\Icons\Normal = image02
   cfgItem\Icons\Hover = image02  
+  cfgItem\Icons\Disabled = image02
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Two"
   cfgItem\CallBackFunc = @_ItemClicked()
   
-  AddCmpPanelItem(@cfgItem)
+  itemTwo = AddCmpPanelItem(@cfgItem)
   
   CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
   cfgItem\PanelIndex = leftCtrl
   cfgItem\Icons\Normal = image03
   cfgItem\Icons\Hover = image03  
+  cfgItem\Icons\Disabled = image03
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Three"
   cfgItem\CallBackFunc = @_ItemClicked()
   
-  AddCmpPanelItem(@cfgItem)
+  itemThree = AddCmpPanelItem(@cfgItem)
+  
+  ButtonGadget(#EnableTwoButton, 10, 10, 150, 25, "Enable Two")
+  DisableGadget(#EnableTwoButton, #True)
+  BindGadgetEvent(#EnableTwoButton, @_OnEnableTwo(), #PB_EventType_LeftClick)
+  
+  ButtonGadget(#DisableTwoButton, 10, 10, 150, 25, "Disable Two")
+  BindGadgetEvent(#DisableTwoButton, @_OnDisableTwo(), #PB_EventType_LeftClick)
   
   _OnResizeWindow()
   
@@ -142,8 +183,8 @@ EndDataSection
 End
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 78
-; FirstLine = 58
+; CursorPosition = 138
+; FirstLine = 121
 ; Folding = -
 ; EnableXP
 ; DPIAware

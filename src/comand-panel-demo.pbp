@@ -7,20 +7,20 @@
   <section name="data">
     <explorer view="../../" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2025-09-03 23:10" user="jdooley" host="Jamess-iMac.local"/>
+    <lastopen date="2025-09-04 13:08" user="jdooley" host="Jamess-iMac.local"/>
   </section>
   <section name="files">
     <file name="command-panel-data.pbi">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate=""/>
+      <config load="0" scan="1" panel="1" warn="1" lastopen="0" sortindex="999" panelstate=""/>
       <fingerprint md5="de4742019fbe981ad906e661b5726a05"/>
     </file>
     <file name="command-panel-gadget.pbi">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate=""/>
+      <config load="0" scan="1" panel="1" warn="1" lastopen="0" sortindex="999" panelstate=""/>
       <fingerprint md5="3cf65503785bc6bb55892405b5f27331"/>
     </file>
     <file name="main.pb">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="3" panelstate=""/>
-      <fingerprint md5="c62442d6cc6ae2412af59c610d5e33bf"/>
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate=""/>
+      <fingerprint md5="59f85bd72d111266a2994c1fb43555e2"/>
     </file>
   </section>
   <section name="targets">

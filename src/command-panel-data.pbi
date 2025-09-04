@@ -477,7 +477,7 @@ Module CommandPanelData
       \Font\Size = 15
       \Font\Colours\Normal = $654847
       \Font\Colours\Selected = #Black
-      \Font\Colours\Disabled = #Black
+      \Font\Colours\Disabled = $9FA1A4
       \Font\Colours\Hover = #Black
       \Icons\Normal = #Null
       \Icons\Selected = #Null
@@ -485,7 +485,7 @@ Module CommandPanelData
       \Icons\Hover = #Null
       \Colours\Normal = $EED9B6
       \Colours\Selected = $C6C6C6
-      \Colours\Disabled = $AC9A64
+      \Colours\Disabled = $E8E3DA
       \Colours\Hover = $31DDF6
       \Border = #False
       \BorderColour = #White
@@ -497,8 +497,8 @@ Module CommandPanelData
 EndModule
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 477
-; FirstLine = 461
+; CursorPosition = 479
+; FirstLine = 454
 ; Folding = ---
 ; EnableXP
 ; DPIAware
