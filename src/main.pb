@@ -18,6 +18,8 @@ Enumeration
   #DemoWindow
   #EnableTwoButton
   #DisableTwoButton
+  #SelectThreeButton
+  #DeselectThreeButton
 EndEnumeration
 
 #APP_TITLE = "Demo Command Panel"
@@ -29,7 +31,7 @@ UsePNGImageDecoder()
 ;-------- Variables -------
 
 Define event.i, quit.b, leftCtrl.i, rightCtrl.i
-Define.i itemOne, itemTwo, itemThree
+Define.i itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix, itemSeven
 Define cfg.CommandPanelData::cpConfiguration,
        cfgItem.CommandPanelData::cpItemConfiguration
 Define image01.i = CatchImage(#PB_Any, ?Image_01),
@@ -51,24 +53,31 @@ Procedure _OnResizeWindow()
   ; Position the CommandPanels
   NO = CommandPanelData::CommandPanelNO(leftCtrl)
   
-  ResizeGadget(NO, locX, locY, #PB_Ignore, wndHeight)
-  
+  If IsGadget(NO)
+    ResizeGadget(NO, locX, locY, #PB_Ignore, wndHeight)
+  EndIf
+
   NO = CommandPanelData::CommandPanelNO(rightCtrl)
   panelWidth = GadgetWidth(NO)
   locX = wndWidth - panelWidth
   
-  ResizeGadget(NO, locX, locY, #PB_Ignore, wndHeight)
-  
+  If IsGadget(NO)
+    ResizeGadget(NO, locX, locY, #PB_Ignore, wndHeight)
+  EndIf
+
   ; Position the left buttons
   locX = 200
   locY = 10
-  
   ResizeGadget(#EnableTwoButton, locX, locY, #PB_Ignore, #PB_Ignore)
   
   locY = locY + 30
-  
   ResizeGadget(#DisableTwoButton, locX, locY, #PB_Ignore, #PB_Ignore)
   
+  locY = locY + 30
+  ResizeGadget(#SelectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)
+  
+  locY = locY + 30
+  ResizeGadget(#DeselectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)  
 EndProcedure
 
 Procedure _ItemClicked(index.i)
@@ -91,6 +100,24 @@ Procedure _OnDisableTwo()
   DisableGadget(#DisableTwoButton, #True)
   DisableGadget(#EnableTwoButton, #False)
   DisableCmpPanelItem(itemTwo)
+EndProcedure
+
+Procedure _OnSelectThree()
+  Shared itemThree
+  
+  DisableGadget(#SelectThreeButton, #True)
+  DisableGadget(#DeselectThreeButton, #False)
+  
+  SelectCmpPanelItem(itemThree)
+EndProcedure
+
+Procedure _OnDeselectThree()
+  Shared leftCtrl
+  
+  DisableGadget(#SelectThreeButton, #False)
+  DisableGadget(#DeselectThreeButton, #True) 
+  
+  ClearCommandPanelSelection(leftCtrl)
 EndProcedure
 
 ;┌───────────────────────────────────────────────────────────────────────────────────────────────
@@ -118,7 +145,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Caption$ = "Item Number One"
   cfgItem\CallBackFunc = @_ItemClicked()
   
-  itemOne = AddCmpPanelItem(@cfgItem)
+  itemOne = AddCmpPanelItem(@cfgItem, #True)
   
   CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
   cfgItem\PanelIndex = leftCtrl
@@ -130,19 +157,69 @@ If IsWindow(#DemoWindow)
   cfgItem\Caption$ = "Item Number Two"
   cfgItem\CallBackFunc = @_ItemClicked()
   
-  itemTwo = AddCmpPanelItem(@cfgItem)
+  itemTwo = AddCmpPanelItem(@cfgItem, #True)
   
   CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
   cfgItem\PanelIndex = leftCtrl
   cfgItem\Icons\Normal = image03
   cfgItem\Icons\Hover = image03  
   cfgItem\Icons\Disabled = image03
+  cfgItem\Icons\Selected = image03
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Three"
   cfgItem\CallBackFunc = @_ItemClicked()
   
   itemThree = AddCmpPanelItem(@cfgItem)
+  
+  CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
+  cfgItem\PanelIndex = rightCtrl
+  cfgItem\Icons\Normal = image01
+  cfgItem\Icons\Hover = image01 
+  cfgItem\Icons\Disabled = image01
+  cfgItem\Border = #True
+  cfgItem\BorderColour = #Black
+  cfgItem\Caption$ = "Item Number Four"
+  cfgItem\CallBackFunc = @_ItemClicked()
+  
+  itemFour = AddCmpPanelItem(@cfgItem, #True)
+  
+  CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
+  cfgItem\PanelIndex = rightCtrl
+  cfgItem\Icons\Normal = image02
+  cfgItem\Icons\Hover = image02 
+  cfgItem\Icons\Disabled = image02
+  cfgItem\Border = #True
+  cfgItem\BorderColour = #Black
+  cfgItem\Caption$ = "Item Number Five"
+  cfgItem\CallBackFunc = @_ItemClicked()  
+  
+  itemFive = AddCmpPanelItem(@cfgItem) 
+  
+  CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
+  cfgItem\PanelIndex = rightCtrl
+  cfgItem\Icons\Normal = image03
+  cfgItem\Icons\Hover = image03 
+  cfgItem\Icons\Disabled = image03
+  cfgItem\Border = #True
+  cfgItem\BorderColour = #Black
+  cfgItem\Caption$ = "Item Number Six"
+  cfgItem\CallBackFunc = @_ItemClicked() 
+  
+  itemSix  = AddCmpPanelItem(@cfgItem, #True)
+  
+  CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
+  cfgItem\PanelIndex = rightCtrl
+  cfgItem\Icons\Normal = image01
+  cfgItem\Icons\Hover = image01 
+  cfgItem\Icons\Disabled = image01
+  cfgItem\Border = #True
+  cfgItem\BorderColour = #Black
+  cfgItem\Caption$ = "Item Number Seven"
+  cfgItem\CallBackFunc = @_ItemClicked()
+  
+  itemSeven = AddCmpPanelItem(@cfgItem)
+  
   
   ButtonGadget(#EnableTwoButton, 10, 10, 150, 25, "Enable Two")
   DisableGadget(#EnableTwoButton, #True)
@@ -151,6 +228,13 @@ If IsWindow(#DemoWindow)
   ButtonGadget(#DisableTwoButton, 10, 10, 150, 25, "Disable Two")
   BindGadgetEvent(#DisableTwoButton, @_OnDisableTwo(), #PB_EventType_LeftClick)
   
+  ButtonGadget(#SelectThreeButton, 10, 10, 150, 25, "Select Three")
+  BindGadgetEvent(#SelectThreeButton, @_OnSelectThree(), #PB_EventType_LeftClick)
+  
+  ButtonGadget(#DeselectThreeButton, 10, 10, 150, 25, "Deselect Three")
+  DisableGadget(#DeselectThreeButton, #True)
+  BindGadgetEvent(#DeselectThreeButton, @_OnDeselectThree(), #PB_EventType_LeftClick)
+ 
   _OnResizeWindow()
   
   quit = #False
@@ -183,8 +267,8 @@ EndDataSection
 End
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 138
-; FirstLine = 121
-; Folding = -
+; CursorPosition = 115
+; FirstLine = 102
+; Folding = --
 ; EnableXP
 ; DPIAware

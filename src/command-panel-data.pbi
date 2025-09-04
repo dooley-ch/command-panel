@@ -46,6 +46,7 @@ DeclareModule CommandPanelData
     BackColour.i
     Borders.cpBorders
     Width.i
+    Selected.i
   EndStructure
   
   ; Structure used internally to store the CommandPanel
@@ -105,6 +106,8 @@ DeclareModule CommandPanelData
   Declare.b FindCmdPanelRecord(index.i, *cfg.cpConfigurationEx) ; Locates a panel entry based on the given index
   Declare.i CommandPanelNO(index.i)                             ; Returns the PB number for a given CommandPanel
   Declare.b SetCommandPanelNO(index.i, panelNO.i)               ; Sets the CommandPanel PB number 
+  Declare.b SetCommandPanelSelected(index.i, itemIndex.i)       ; Sets the selected item for the panel
+  Declare.i GetCommandPanelSelected(index.i)                    ; Get the selected item for the panel
   Declare InitCommandPanelConfig(*cfg.cpConfiguration)          ; Initialize the structure
   
   Declare.i AddCmdPanelItemRecord(*cfg.cpItemConfiguration)                             ; Adds an entry to the items collection
@@ -220,6 +223,50 @@ Module CommandPanelData
         ProcedureReturn #True
       EndIf
     Next 
+    
+    ProcedureReturn #False
+  EndProcedure
+  
+  ; Sets the selected item for the panel
+  ;
+  ; Params
+  ;   index - Panel index
+  ;   itemIndex - The selected item
+  ;
+  ; Return
+  ;   True if selected, otherwise False
+  ;
+  Procedure.b SetCommandPanelSelected(index.i, itemIndex.i)   
+    Shared _cpPanels()
+    
+    ResetList(_cpPanels())
+    ForEach _cpPanels()
+      If _cpPanels()\Index = index
+        _cpPanels()\Selected = itemIndex
+        ProcedureReturn #True
+      EndIf
+    Next
+    
+    ProcedureReturn #False
+  EndProcedure
+  
+  ; Get the selected item for the panel
+  ;
+  ; Params
+  ;   index - The panel index
+  ;
+  ; Return
+  ;   The item index if any 
+  ;
+  Procedure.i GetCommandPanelSelected(index.i)                    
+    Shared _cpPanels()
+    
+    ResetList(_cpPanels())
+    ForEach _cpPanels()
+      If _cpPanels()\Index = index
+        ProcedureReturn _cpPanels()\Selected
+      EndIf
+    Next
     
     ProcedureReturn #False
   EndProcedure
@@ -497,8 +544,8 @@ Module CommandPanelData
 EndModule
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 479
-; FirstLine = 454
+; CursorPosition = 266
+; FirstLine = 237
 ; Folding = ---
 ; EnableXP
 ; DPIAware
