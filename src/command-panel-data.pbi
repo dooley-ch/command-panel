@@ -16,7 +16,7 @@ DeclareModule CommandPanelData
   Prototype OnCommandItemClick(index.i)
   
   ; Flags to indicate the CommandPanel border requirements
-  EnumerationBinary
+  EnumerationBinary BorderSides
     #CP_LeftBorder
     #CP_RightBorder
     #CP_TopBorder
@@ -24,7 +24,7 @@ DeclareModule CommandPanelData
   EndEnumeration
   
   ; Indicates the state of an item 
-  Enumeration
+  Enumeration ItemState
     #CP_NormalItem
     #CP_SelectedItem
     #CP_HoverItem
@@ -548,8 +548,8 @@ Module CommandPanelData
 EndModule
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 120
-; FirstLine = 98
+; CursorPosition = 104
+; FirstLine = 77
 ; Folding = ---
 ; EnableXP
 ; DPIAware

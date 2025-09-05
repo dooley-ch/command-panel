@@ -1,0 +1,132 @@
+@startuml CommandPanel
+!theme sunlust
+
+title CommandPanel Gadget
+caption Source Code Overview
+
+enum BorderSides <<flag>> {
+  #CP_LeftBorder
+  #CP_RightBorder
+  #CP_TopBorder
+  #CP_BottomBorder
+}
+
+enum ItemState {
+  #CP_NormalItem
+  #CP_SelectedItem
+  #CP_HoverItem
+  #CP_DisabledItem
+  #CP_DeletedItem
+}
+
+record cpBorders {
+  Byte Sides
+  Integer Colour
+  Integer Width
+}
+
+record cpConfiguration {
+  Integer BackColour
+  cpBorders Borders
+  Integer Width
+  Integer Selected
+  Byte IsToggle
+}
+
+record cpConfigurationEx {
+  Integer Index
+  Integer GadgetNO
+}
+ 
+record cpColours {
+  Integer Normal
+  Integer Disabled
+  Integer Hover
+  Integer Selected
+}
+
+record cpFont {
+  String Name$
+  Integer Size
+  cpColours Colours
+}
+
+record cpImages {
+  Integer Normal
+  Integer Disabled
+  Integer Hover
+  Integer Selected  
+}
+
+record cpItemConfiguration {
+  String Caption
+  cpFont Font
+  cpImages Icons
+  cpColours Colours
+  Byte Border
+  Integer BorderColour
+  OnCommandItemClick CallBackFunc
+  Integer PanelIndex
+}
+
+record cpItemConfigurationEx {
+  Integer Index
+  Integer GadgetNO
+  cpImages Images
+  Integer State
+}
+
+class  CommandPanelGadgetUI  <<Module>> {
+  +CommandPanelGadget(*cfg.cpConfiguration)
+  +ClearCommandPanelSelection(panelIndex.i)
+  ..
+  +AddCmpPanelItem(*cfg.cpItemConfiguration, isBatch.b = #False)
+  +DisableCmpPanelItem(index.i, disable.b = #True)
+  +SelectCmpPanelItem(index.i)
+  ..
+  +LastErrorCommandPanelGadgetUI()
+}
+
+class  CommandPanelData  <<Module>> {
+  +AddCmdPanelRecord(*cfg.cpConfiguration)
+  +FindCmdPanelRecord(index.i, *cfg.cpConfigurationEx)
+  +CommandPanelNO(index.i)
+  +SetCommandPanelNO(index.i, panelNO.i)
+  +SetCommandPanelSelected(index.i, itemIndex.i)
+  +GetCommandPanelSelected(index.i)
+  +InitCommandPanelConfig(*cfg.cpConfiguration)
+  ..
+  +AddCmdPanelItemRecord(*cfg.cpItemConfiguration)
+  +FindCmdPanelItemRecord(index.i, *cfg.cpItemConfigurationEx)
+  +SetCmdPanelItemState(index.i, state.b)
+  +SetCmdPanelItemNO(index.i, indexNO.i)
+  +SetCmpPanelItemImages(index.i, normal.i, selected.i, disabled.i, hover.i)
+  +FindCmdPanelItemsByCmd(panelIndex.i, List items.cpItemConfigurationEx())
+  +FindCmdPanelItemRecord(index.i, *cfg.cpItemConfigurationEx)
+  +DeleteCmdPanelItem(index.i)
+  +SetCmdPanelItemNO(index.i, itemNO.i) 
+  +InitCmdPanelItemConfig(*cfg.cpItemConfiguration)
+}
+
+cpItemConfiguration <|-- cpItemConfigurationEx
+cpConfiguration <|-- cpConfigurationEx
+BorderSides <.. cpBorders
+cpBorders	<-- cpConfiguration
+cpFont <-- cpItemConfiguration
+cpImages <-- cpItemConfiguration
+cpColours <-- cpItemConfiguration
+ItemState <.. cpItemConfiguration
+
+BorderSides *-- CommandPanelData
+ItemState *-- CommandPanelData
+cpBorders *-- CommandPanelData
+cpConfiguration *-- CommandPanelData
+cpConfigurationEx *-- CommandPanelData
+cpColours *-- CommandPanelData
+cpFont *-- CommandPanelData
+cpImages *-- CommandPanelData
+cpItemConfiguration *-- CommandPanelData
+cpItemConfigurationEx *-- CommandPanelData
+
+CommandPanelData <-- CommandPanelGadgetUI
+@enduml
