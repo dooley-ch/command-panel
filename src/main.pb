@@ -20,6 +20,8 @@ Enumeration
   #DisableTwoButton
   #SelectThreeButton
   #DeselectThreeButton
+  #DeleteItemButton
+  #AddItemButton
 EndEnumeration
 
 #APP_TITLE = "Demo Command Panel"
@@ -78,6 +80,12 @@ Procedure _OnResizeWindow()
   
   locY = locY + 30
   ResizeGadget(#DeselectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)  
+  
+  locY = locY + 30
+  ResizeGadget(#AddItemButton, locX, locY, #PB_Ignore, #PB_Ignore) 
+  
+  locY = locY + 30
+  ResizeGadget(#DeleteItemButton, locX, locY, #PB_Ignore, #PB_Ignore)  
 EndProcedure
 
 Procedure _ItemClicked(index.i)
@@ -118,6 +126,34 @@ Procedure _OnDeselectThree()
   DisableGadget(#DeselectThreeButton, #True) 
   
   ClearCommandPanelSelection(leftCtrl)
+EndProcedure
+
+Procedure _OnDeleteItem()
+  Shared itemSix
+  
+  DisableGadget(#DeleteItemButton, #True)
+  DisableGadget(#AddItemButton, #False) 
+  
+  DeleteCmpPanelItem(itemSix)
+EndProcedure
+  
+Procedure _OnAddItem()
+  Shared itemSix, cfgItem, rightCtrl, image03
+  
+  DisableGadget(#DeleteItemButton, #False)
+  DisableGadget(#AddItemButton, #True) 
+  
+  CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
+  cfgItem\PanelIndex = rightCtrl
+  cfgItem\Icons\Normal = image03
+  cfgItem\Icons\Hover = image03 
+  cfgItem\Icons\Disabled = image03
+  cfgItem\Border = #True
+  cfgItem\BorderColour = #Black
+  cfgItem\Caption$ = "Item Number Six"
+  cfgItem\CallBackFunc = @_ItemClicked() 
+  
+  itemSix  = AddCmpPanelItem(@cfgItem)  
 EndProcedure
 
 ;┌───────────────────────────────────────────────────────────────────────────────────────────────
@@ -234,7 +270,14 @@ If IsWindow(#DemoWindow)
   ButtonGadget(#DeselectThreeButton, 10, 10, 150, 25, "Deselect Three")
   DisableGadget(#DeselectThreeButton, #True)
   BindGadgetEvent(#DeselectThreeButton, @_OnDeselectThree(), #PB_EventType_LeftClick)
- 
+  
+  ButtonGadget(#AddItemButton, 10, 10, 150, 25, "Add Six")
+  BindGadgetEvent(#AddItemButton, @_OnAddItem(), #PB_EventType_LeftClick)
+  DisableGadget(#AddItemButton, #True)
+  
+  ButtonGadget(#DeleteItemButton, 10, 10, 150, 25, "Delete Six")
+  BindGadgetEvent(#DeleteItemButton, @_OnDeleteItem(), #PB_EventType_LeftClick)
+  
   _OnResizeWindow()
   
   quit = #False
@@ -267,8 +310,8 @@ EndDataSection
 End
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 115
-; FirstLine = 102
+; CursorPosition = 155
+; FirstLine = 139
 ; Folding = --
 ; EnableXP
 ; DPIAware

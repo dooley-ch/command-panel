@@ -7,20 +7,20 @@
   <section name="data">
     <explorer view="../../" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2025-09-04 13:08" user="jdooley" host="Jamess-iMac.local"/>
+    <lastopen date="2025-09-04 20:15" user="jdooley" host="Jamess-iMac.local"/>
   </section>
   <section name="files">
+    <file name="main.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="3" panelstate=""/>
+      <fingerprint md5="caf99ebce1982d13f15d3029092f8ae9"/>
+    </file>
     <file name="command-panel-data.pbi">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="0" sortindex="999" panelstate=""/>
-      <fingerprint md5="de4742019fbe981ad906e661b5726a05"/>
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate=""/>
+      <fingerprint md5="15d61e97fd709e29722376e5c4a535fd"/>
     </file>
     <file name="command-panel-gadget.pbi">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="0" sortindex="999" panelstate=""/>
-      <fingerprint md5="3cf65503785bc6bb55892405b5f27331"/>
-    </file>
-    <file name="main.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate=""/>
-      <fingerprint md5="59f85bd72d111266a2994c1fb43555e2"/>
+      <fingerprint md5="ec7dac4b736dc329bf3d73901b315e58"/>
     </file>
   </section>
   <section name="targets">
