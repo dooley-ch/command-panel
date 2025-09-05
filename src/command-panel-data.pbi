@@ -47,6 +47,7 @@ DeclareModule CommandPanelData
     Borders.cpBorders
     Width.i
     Selected.i
+    IsToggle.b
   EndStructure
   
   ; Structure used internally to store the CommandPanel
@@ -155,6 +156,7 @@ Module CommandPanelData
     _cpPanels()\Borders = *cfg\Borders
     _cpPanels()\GadgetNO = 0
     _cpPanels()\Index = _nextPanelIndex
+    _cpPanels()\IsToggle = *cfg\IsToggle
     
     _nextPanelIndex = _nextPanelIndex + 1
     
@@ -243,6 +245,7 @@ Module CommandPanelData
     ForEach _cpPanels()
       If _cpPanels()\Index = index
         _cpPanels()\Selected = itemIndex
+       
         ProcedureReturn #True
       EndIf
     Next
@@ -282,6 +285,7 @@ Module CommandPanelData
     *cfg\Borders\Colour = $C6C6C6
     *cfg\Borders\Width = 2
     *cfg\Width = 200
+    *cfg\IsToggle = #False
   EndProcedure
   
   ; Adds an entry to the items collection
@@ -544,8 +548,8 @@ Module CommandPanelData
 EndModule
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 266
-; FirstLine = 237
+; CursorPosition = 120
+; FirstLine = 98
 ; Folding = ---
 ; EnableXP
 ; DPIAware

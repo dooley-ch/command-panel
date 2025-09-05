@@ -20,8 +20,6 @@ Enumeration
   #DisableTwoButton
   #SelectThreeButton
   #DeselectThreeButton
-  #DeleteItemButton
-  #AddItemButton
 EndEnumeration
 
 #APP_TITLE = "Demo Command Panel"
@@ -79,13 +77,7 @@ Procedure _OnResizeWindow()
   ResizeGadget(#SelectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)
   
   locY = locY + 30
-  ResizeGadget(#DeselectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)  
-  
-  locY = locY + 30
-  ResizeGadget(#AddItemButton, locX, locY, #PB_Ignore, #PB_Ignore) 
-  
-  locY = locY + 30
-  ResizeGadget(#DeleteItemButton, locX, locY, #PB_Ignore, #PB_Ignore)  
+  ResizeGadget(#DeselectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)   
 EndProcedure
 
 Procedure _ItemClicked(index.i)
@@ -128,34 +120,6 @@ Procedure _OnDeselectThree()
   ClearCommandPanelSelection(leftCtrl)
 EndProcedure
 
-Procedure _OnDeleteItem()
-  Shared itemSix
-  
-  DisableGadget(#DeleteItemButton, #True)
-  DisableGadget(#AddItemButton, #False) 
-  
-  DeleteCmpPanelItem(itemSix)
-EndProcedure
-  
-Procedure _OnAddItem()
-  Shared itemSix, cfgItem, rightCtrl, image03
-  
-  DisableGadget(#DeleteItemButton, #False)
-  DisableGadget(#AddItemButton, #True) 
-  
-  CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
-  cfgItem\PanelIndex = rightCtrl
-  cfgItem\Icons\Normal = image03
-  cfgItem\Icons\Hover = image03 
-  cfgItem\Icons\Disabled = image03
-  cfgItem\Border = #True
-  cfgItem\BorderColour = #Black
-  cfgItem\Caption$ = "Item Number Six"
-  cfgItem\CallBackFunc = @_ItemClicked() 
-  
-  itemSix  = AddCmpPanelItem(@cfgItem)  
-EndProcedure
-
 ;┌───────────────────────────────────────────────────────────────────────────────────────────────
 ;│     Main Loop     
 ;└───────────────────────────────────────────────────────────────────────────────────────────────
@@ -171,6 +135,7 @@ If IsWindow(#DemoWindow)
   
   CommandPanelData::InitCommandPanelConfig(@cfg)
   cfg\Width = 250
+  cfg\IsToggle = #True
   rightCtrl = CommandPanelGadget(@cfg)
   
   CommandPanelData::InitCmdPanelItemConfig(@cfgItem)
@@ -213,6 +178,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Icons\Normal = image01
   cfgItem\Icons\Hover = image01 
   cfgItem\Icons\Disabled = image01
+  cfgItem\Icons\Selected = image01
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Four"
@@ -225,6 +191,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Icons\Normal = image02
   cfgItem\Icons\Hover = image02 
   cfgItem\Icons\Disabled = image02
+  cfgItem\Icons\Selected = image02
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Five"
@@ -237,6 +204,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Icons\Normal = image03
   cfgItem\Icons\Hover = image03 
   cfgItem\Icons\Disabled = image03
+  cfgItem\Icons\Selected = image03
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Six"
@@ -249,6 +217,7 @@ If IsWindow(#DemoWindow)
   cfgItem\Icons\Normal = image01
   cfgItem\Icons\Hover = image01 
   cfgItem\Icons\Disabled = image01
+  cfgItem\Icons\Selected = image01
   cfgItem\Border = #True
   cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Seven"
@@ -270,13 +239,6 @@ If IsWindow(#DemoWindow)
   ButtonGadget(#DeselectThreeButton, 10, 10, 150, 25, "Deselect Three")
   DisableGadget(#DeselectThreeButton, #True)
   BindGadgetEvent(#DeselectThreeButton, @_OnDeselectThree(), #PB_EventType_LeftClick)
-  
-  ButtonGadget(#AddItemButton, 10, 10, 150, 25, "Add Six")
-  BindGadgetEvent(#AddItemButton, @_OnAddItem(), #PB_EventType_LeftClick)
-  DisableGadget(#AddItemButton, #True)
-  
-  ButtonGadget(#DeleteItemButton, 10, 10, 150, 25, "Delete Six")
-  BindGadgetEvent(#DeleteItemButton, @_OnDeleteItem(), #PB_EventType_LeftClick)
   
   _OnResizeWindow()
   
@@ -310,8 +272,8 @@ EndDataSection
 End
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 155
-; FirstLine = 139
+; CursorPosition = 79
+; FirstLine = 78
 ; Folding = --
 ; EnableXP
 ; DPIAware
