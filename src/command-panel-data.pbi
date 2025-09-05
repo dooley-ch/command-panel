@@ -103,13 +103,13 @@ DeclareModule CommandPanelData
     State.i
   EndStructure
   
-  Declare.i AddCmdPanelRecord(*cfg.cpConfiguration)             ; Adds an entry to the panels collection
-  Declare.b FindCmdPanelRecord(index.i, *cfg.cpConfigurationEx) ; Locates a panel entry based on the given index
-  Declare.i CommandPanelNO(index.i)                             ; Returns the PB number for a given CommandPanel
-  Declare.b SetCommandPanelNO(index.i, panelNO.i)               ; Sets the CommandPanel PB number 
-  Declare.b SetCommandPanelSelected(index.i, itemIndex.i)       ; Sets the selected item for the panel
-  Declare.i GetCommandPanelSelected(index.i)                    ; Get the selected item for the panel
-  Declare InitCommandPanelConfig(*cfg.cpConfiguration)          ; Initialize the structure
+  Declare.i AddCmdPanelRecord(*cfg.cpConfiguration)                                     ; Adds an entry to the panels collection
+  Declare.b FindCmdPanelRecord(index.i, *cfg.cpConfigurationEx)                         ; Locates a panel entry based on the given index
+  Declare.i CommandPanelNO(index.i)                                                     ; Returns the PB number for a given CommandPanel
+  Declare.b SetCommandPanelNO(index.i, panelNO.i)                                       ; Sets the CommandPanel PB number 
+  Declare.b SetCommandPanelSelected(index.i, itemIndex.i)                               ; Sets the selected item for the panel
+  Declare.i GetCommandPanelSelected(index.i)                                            ; Get the selected item for the panel
+  Declare InitCommandPanelConfig(*cfg.cpConfiguration)                                  ; Initialize the structure
   
   Declare.i AddCmdPanelItemRecord(*cfg.cpItemConfiguration)                             ; Adds an entry to the items collection
   Declare.b FindCmdPanelItemRecord(index.i, *cfg.cpItemConfigurationEx)                 ; Locates an item entry based on the given index
@@ -548,8 +548,8 @@ Module CommandPanelData
 EndModule
 ; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 104
-; FirstLine = 77
+; CursorPosition = 106
+; FirstLine = 89
 ; Folding = ---
 ; EnableXP
 ; DPIAware

@@ -11,3 +11,5 @@ This is am example of how to implement a navitaion panel in PureBasic.
 ## Example
 
 ![Example](example.png)
+
+![Example](demo.gif)
