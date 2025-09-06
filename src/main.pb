@@ -1,5 +1,5 @@
 ﻿;╔═════════════════════════════════════════════════════════════════════════════════════════════════
-;║     <File Name>                                                                           
+;║     main.pb                                                                       
 ;╠═════════════════════════════════════════════════════════════════════════════════════════════════
 ;║     Created: 00-00-2025 
 ;║
@@ -13,7 +13,19 @@
 XIncludeFile "command-panel-gadget.pbi"
 
 EnableExplicit
-  
+
+CompilerIf #PB_Compiler_OS = #PB_OS_MacOS
+  #BUTTONS_OFFSET = 190
+  #BUTTON_HEIGHT = 25
+  #BUTTON_WIDTH = 150
+  #BUTTON_PADDING = 30
+CompilerElse
+  #BUTTONS_OFFSET = 225
+  #BUTTON_HEIGHT = 20
+  #BUTTON_WIDTH = 100
+  #BUTTON_PADDING = 25
+CompilerEndIf
+
 Enumeration
   #DemoWindow
   #EnableTwoButton
@@ -66,17 +78,17 @@ Procedure _OnResizeWindow()
   EndIf
 
   ; Position the left buttons
-  locX = 200
+  locX = #BUTTONS_OFFSET
   locY = 10
   ResizeGadget(#EnableTwoButton, locX, locY, #PB_Ignore, #PB_Ignore)
   
-  locY = locY + 30
+  locY = locY + #BUTTON_PADDING
   ResizeGadget(#DisableTwoButton, locX, locY, #PB_Ignore, #PB_Ignore)
   
-  locY = locY + 30
+  locY = locY + #BUTTON_PADDING
   ResizeGadget(#SelectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)
   
-  locY = locY + 30
+  locY = locY + #BUTTON_PADDING
   ResizeGadget(#DeselectThreeButton, locX, locY, #PB_Ignore, #PB_Ignore)   
 EndProcedure
 
@@ -205,8 +217,6 @@ If IsWindow(#DemoWindow)
   cfgItem\Icons\Hover = image03 
   cfgItem\Icons\Disabled = image03
   cfgItem\Icons\Selected = image03
-  cfgItem\Border = #True
-  cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Six"
   cfgItem\CallBackFunc = @_ItemClicked() 
   
@@ -218,25 +228,23 @@ If IsWindow(#DemoWindow)
   cfgItem\Icons\Hover = image01 
   cfgItem\Icons\Disabled = image01
   cfgItem\Icons\Selected = image01
-  cfgItem\Border = #True
-  cfgItem\BorderColour = #Black
   cfgItem\Caption$ = "Item Number Seven"
   cfgItem\CallBackFunc = @_ItemClicked()
   
   itemSeven = AddCmpPanelItem(@cfgItem)
   
   
-  ButtonGadget(#EnableTwoButton, 10, 10, 150, 25, "Enable Two")
+  ButtonGadget(#EnableTwoButton, 10, 10, #BUTTON_WIDTH, #BUTTON_HEIGHT, "Enable Two")
   DisableGadget(#EnableTwoButton, #True)
   BindGadgetEvent(#EnableTwoButton, @_OnEnableTwo(), #PB_EventType_LeftClick)
   
-  ButtonGadget(#DisableTwoButton, 10, 10, 150, 25, "Disable Two")
+  ButtonGadget(#DisableTwoButton, 10, 10, #BUTTON_WIDTH, #BUTTON_HEIGHT, "Disable Two")
   BindGadgetEvent(#DisableTwoButton, @_OnDisableTwo(), #PB_EventType_LeftClick)
   
-  ButtonGadget(#SelectThreeButton, 10, 10, 150, 25, "Select Three")
+  ButtonGadget(#SelectThreeButton, 10, 10, #BUTTON_WIDTH, #BUTTON_HEIGHT, "Select Three")
   BindGadgetEvent(#SelectThreeButton, @_OnSelectThree(), #PB_EventType_LeftClick)
   
-  ButtonGadget(#DeselectThreeButton, 10, 10, 150, 25, "Deselect Three")
+  ButtonGadget(#DeselectThreeButton, 10, 10, #BUTTON_WIDTH, #BUTTON_HEIGHT, "Deselect Three")
   DisableGadget(#DeselectThreeButton, #True)
   BindGadgetEvent(#DeselectThreeButton, @_OnDeselectThree(), #PB_EventType_LeftClick)
   
@@ -260,20 +268,29 @@ If IsWindow(#DemoWindow)
 EndIf  
 
 DataSection
-  Image_01:
-  IncludeBinary #PB_Compiler_FilePath + "images/24_businessmen.png"
-  Image_02:
-  IncludeBinary #PB_Compiler_FilePath + "images/24_castle.png"
-  Image_03:
-  IncludeBinary #PB_Compiler_FilePath + "images/24_cd_gold.png"    
+  CompilerIf #PB_Compiler_OS = #PB_OS_MacOS
+    Image_01:
+    IncludeBinary #PB_Compiler_FilePath + "images/24_businessmen.png"
+    Image_02:
+    IncludeBinary #PB_Compiler_FilePath + "images/24_castle.png"
+    Image_03:
+    IncludeBinary #PB_Compiler_FilePath + "images/24_cd_gold.png" 
+  CompilerElse
+    Image_01:
+    IncludeBinary #PB_Compiler_FilePath + "images/32_businessmen.png"
+    Image_02:
+    IncludeBinary #PB_Compiler_FilePath + "images/32_castle.png"
+    Image_03:
+    IncludeBinary #PB_Compiler_FilePath + "images/32_cd_gold.png" 
+  CompilerEndIf
 EndDataSection
 
 ;-------- Terminate --------
 End
-; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
+; IDE Options = PureBasic 6.21 - C Backend (Windows - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 79
-; FirstLine = 78
+; CursorPosition = 283
+; FirstLine = 244
 ; Folding = --
 ; EnableXP
 ; DPIAware

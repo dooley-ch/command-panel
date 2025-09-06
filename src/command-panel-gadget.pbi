@@ -263,54 +263,63 @@ Module CommandPanelGadgetUI
               imageSize.i
     
     If *cfg\Caption$ <> #Null$
-      FontNO = LoadFont(#PB_Any, *cfg\FontName$, *cfg\FontSize, #PB_Font_Bold | #PB_Font_HighQuality)
+      CompilerIf #PB_Compiler_OS = #PB_OS_MacOS
+        FontNO = LoadFont(#PB_Any, *cfg\FontName$, *cfg\FontSize, #PB_Font_Bold | #PB_Font_HighQuality)
+      CompilerElse
+        FontNO = LoadFont(#PB_Any, *cfg\FontName$, *cfg\FontSize)
+      CompilerEndIf
     EndIf
     
     width = DesktopScaledX(*cfg\Width)
     height = DesktopScaledY(*cfg\Height)
     
     imgNO = CreateImage(#PB_Any, width, height, 32, *cfg\BackColour)
+    ;imgNO = CreateImage(#PB_Any, width, height, 32)
     
-      StartDrawing(ImageOutput(imgNO))
-        ; Draw a border if required
-        If *cfg\Border
-          DrawingMode(#PB_2DDrawing_Outlined)
-          Box(0, 0, width, height, *cfg\BackColour)
-          Box(1, 1, width - 2, height - 2, *cfg\BorderColour)
-          
-          locX = locX + 3
-          locY = locY + 3
-        EndIf
+    StartDrawing(ImageOutput(imgNO))
+      ; Draw a border if required
+      If *cfg\Border
+        DrawingMode(#PB_2DDrawing_Outlined)
+        Box(0, 0, width, height, *cfg\BorderColour)
         
-        ; Draw the icon
-        If IsImage(*cfg\ImageNO)
-          imageSize = height - (locY * 2)
-          
-          imgCopyNO = CopyImage(*cfg\ImageNO, #PB_Any)
-          ResizeImage(imgCopyNO, imageSize, imageSize)
-          
-          DrawingMode(#PB_2DDrawing_AlphaBlend)
-          DrawImage(ImageID(imgCopyNO), locX, locY) ;, imageSize, imageSize) 
-          
-          locX = locX + imageSize + #CaptionPadding
-        EndIf
-        
-        ; Draw Capition
-        If *cfg\Caption$ <> #Null$
-          DrawingMode(#PB_2DDrawing_Transparent | #PB_2DDrawing_NativeText)
-          DrawingFont(FontID(FontNO))
-          FrontColor(*cfg\FontColour)
-          
-          locY = (height - TextHeight(*cfg\Caption$)) / 2
-          
-          DrawText(locX, locY, *cfg\Caption$)
-        EndIf
-      StopDrawing()
-      
-      If IsFont(FontNO)          
-        FreeFont(FontNO)
+        locX = locX + 3
+        locY = locY + 3
       EndIf
       
+      ; Draw the icon
+      If IsImage(*cfg\ImageNO)
+        imageSize = height - (locY * 2)
+        
+        imgCopyNO = CopyImage(*cfg\ImageNO, #PB_Any)
+        ResizeImage(imgCopyNO, imageSize, imageSize)
+        
+        DrawingMode(#PB_2DDrawing_AlphaBlend)
+        DrawImage(ImageID(imgCopyNO), locX, locY) ;, imageSize, imageSize) 
+        
+        locX = locX + imageSize + #CaptionPadding
+      EndIf
+      
+      ; Draw Capition
+      If *cfg\Caption$ <> #Null$
+        CompilerIf #PB_Compiler_OS = #PB_OS_MacOS
+          DrawingMode(#PB_2DDrawing_Transparent | #PB_2DDrawing_NativeText)
+        CompilerElse
+          DrawingMode(#PB_2DDrawing_Transparent)
+        CompilerEndIf
+        
+        DrawingFont(FontID(FontNO))
+        FrontColor(*cfg\FontColour)
+        
+        locY = (height - TextHeight(*cfg\Caption$)) / 2
+        
+        DrawText(locX, locY, *cfg\Caption$)
+      EndIf
+    StopDrawing()
+      
+    If IsFont(FontNO)          
+      FreeFont(FontNO)
+    EndIf
+    
     ProcedureReturn imgNO
   EndProcedure
   
@@ -658,10 +667,10 @@ Module CommandPanelGadgetUI
     ProcedureReturn #False
   EndProcedure
 EndModule
-; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
+; IDE Options = PureBasic 6.21 - C Backend (Windows - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 656
-; FirstLine = 617
-; Folding = ---
+; CursorPosition = 282
+; FirstLine = 266
+; Folding = ----
 ; EnableXP
 ; DPIAware

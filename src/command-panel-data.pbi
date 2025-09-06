@@ -127,6 +127,12 @@ EndDeclareModule
 Module CommandPanelData
   EnableExplicit
   
+CompilerIf #PB_Compiler_OS = #PB_OS_MacOS
+  #ITEM_DEFAULT_FONT = 15   
+CompilerElse
+  #ITEM_DEFAULT_FONT = 11
+CompilerEndIf
+  
   ;────────────────────────────────────────────────────────────────────────────────────────────────
   ;      Variables 
   Define _nextPanelIndex.i = 10000
@@ -525,7 +531,7 @@ Module CommandPanelData
     With *cfg
       \Caption$ = #Null$
       \Font\Name$ = #Null$
-      \Font\Size = 15
+      \Font\Size = #ITEM_DEFAULT_FONT
       \Font\Colours\Normal = $654847
       \Font\Colours\Selected = #Black
       \Font\Colours\Disabled = $9FA1A4
@@ -546,10 +552,10 @@ Module CommandPanelData
   EndProcedure
   
 EndModule
-; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
+; IDE Options = PureBasic 6.21 - C Backend (Windows - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 106
-; FirstLine = 89
-; Folding = ---
+; CursorPosition = 535
+; FirstLine = 509
+; Folding = ----
 ; EnableXP
 ; DPIAware
