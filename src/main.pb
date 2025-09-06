@@ -20,7 +20,7 @@ CompilerIf #PB_Compiler_OS = #PB_OS_MacOS
   #BUTTON_WIDTH = 150
   #BUTTON_PADDING = 30
 CompilerElse
-  #BUTTONS_OFFSET = 225
+  #BUTTONS_OFFSET = 210
   #BUTTON_HEIGHT = 20
   #BUTTON_WIDTH = 100
   #BUTTON_PADDING = 25
@@ -287,9 +287,9 @@ EndDataSection
 
 ;-------- Terminate --------
 End
-; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
+; IDE Options = PureBasic 6.21 - C Backend (Windows - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 24
+; CursorPosition = 22
 ; Folding = --
 ; EnableXP
 ; DPIAware
