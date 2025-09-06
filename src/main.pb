@@ -15,7 +15,7 @@ XIncludeFile "command-panel-gadget.pbi"
 EnableExplicit
 
 CompilerIf #PB_Compiler_OS = #PB_OS_MacOS
-  #BUTTONS_OFFSET = 190
+  #BUTTONS_OFFSET = 200
   #BUTTON_HEIGHT = 25
   #BUTTON_WIDTH = 150
   #BUTTON_PADDING = 30
@@ -287,10 +287,9 @@ EndDataSection
 
 ;-------- Terminate --------
 End
-; IDE Options = PureBasic 6.21 - C Backend (Windows - arm64)
+; IDE Options = PureBasic 6.21 - C Backend (MacOS X - arm64)
 ; ExecutableFormat = Console
-; CursorPosition = 283
-; FirstLine = 244
+; CursorPosition = 24
 ; Folding = --
 ; EnableXP
 ; DPIAware
